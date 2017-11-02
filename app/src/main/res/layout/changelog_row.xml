@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <!-- ChangeLog Row [Bullet Point] You have to use the id="chg_textbullet" -->
+    <TextView
+        android:id="@+id/chg_textbullet"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="2dp"
+        android:gravity="center_vertical"
+        android:text="@string/changelog_row_bulletpoint"
+        android:textSize="16sp" />
+
+
+    <!-- ChangeLog Row [Text] You have to use the id="chg_text" -->
+    <TextView
+        android:id="@+id/chg_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:gravity="center_vertical"
+        android:textSize="16sp" />
+</LinearLayout>

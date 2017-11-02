@@ -1,0 +1,75 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.bennyv17.river.activity.MainActivity">
+
+    <item
+        android:id="@+id/action_run"
+        android:icon="@drawable/ic_play_arrow_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_run"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_undo"
+        android:icon="@drawable/ic_undo_24dp"
+        android:orderInCategory="100"
+        android:title="@string/undo"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_redo"
+        android:icon="@drawable/ic_redo_24dp"
+        android:orderInCategory="100"
+        android:title="@string/redo"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_style"
+        android:icon="@drawable/ic_format_size_24dp"
+        android:orderInCategory="100"
+        android:title="@string/style"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:title="@string/save"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_theme"
+        android:orderInCategory="100"
+        android:title="@string/theme"
+        app:showAsAction="never" />
+
+    <item
+        android:orderInCategory="100"
+        android:title="@string/more"
+        app:showAsAction="never">
+
+        <menu>
+
+            <item
+                android:id="@+id/action_changelog"
+                android:orderInCategory="100"
+                android:title="@string/changelog"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_intro"
+                android:orderInCategory="100"
+                android:title="@string/intro"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_about"
+                android:orderInCategory="100"
+                android:title="@string/about"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
+</menu>

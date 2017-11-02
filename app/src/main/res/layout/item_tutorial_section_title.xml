@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/tutorial_section_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:paddingEnd="14dp"
+        android:paddingStart="14dp"
+        android:rotation="-90"
+        android:src="@drawable/ic_expand_more_24dp"
+        android:tint="?android:attr/textColorTertiary" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tutorial_section_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tutorial_section_arrow"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Title"
+        android:textSize="24sp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:paddingRight="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_lock_outline_24dp"
+        android:tint="?android:attr/textColorTertiary"
+        android:id="@+id/tutorial_section_locked_icon" />
+
+</RelativeLayout>
