@@ -293,7 +293,7 @@ object RiveScriptTutorial : Tutorial {
                                         "+ what is my name$ls" +
                                         "* <get name> == undefined => You never told me your name.$ls" +
                                         "- Your name is <get name>, silly!$ls" +
-                                        "- Aren't you <get name>?$ls",
+                                        "- Aren't you <get name>?",
                                 callback)
 
                         ,
@@ -303,35 +303,21 @@ object RiveScriptTutorial : Tutorial {
                                 "+ what is my name$ls" +
                                         "* <get name> == undefined => You never told me your name.$ls" +
                                         "- Your name is <get name>, silly!$ls" +
-                                        "- Aren't you <get name>?$ls",
+                                        "- Aren't you <get name>?",
                                 callback)
 
                 )) as SimpleTutorialItem
 
-                ,
-
-                SimpleTutorialItem("Tags", true).withSubItems(arrayListOf(
-
-                        SimpleSubTutorialItem("Using donditionals",
-                                "In this example we will check if the name was undefined.",
-                                "! var name = undefined$ls" +
-                                        "+ what is my name$ls" +
-                                        "* <get name> == undefined => You never told me your name.$ls" +
-                                        "- Your name is <get name>, silly!$ls" +
-                                        "- Aren't you <get name>?$ls",
-                                callback)
-
-                        ,
-
-                        SimpleSubTutorialItem("Complex usage",
-                                "This is a more comple usage.",
-                                "+ what is my name$ls" +
-                                        "* <get name> == undefined => You never told me your name.$ls" +
-                                        "- Your name is <get name>, silly!$ls" +
-                                        "- Aren't you <get name>?$ls",
-                                callback)
-
-                )) as SimpleTutorialItem
+//                ,
+//
+//                SimpleTutorialItem("Tags", true).withSubItems(arrayListOf(
+//
+//                        SimpleSubTutorialItem("",
+//                                "",
+//                                "",
+//                                callback)
+//
+//                )) as SimpleTutorialItem
 
         )
     }
