@@ -634,9 +634,16 @@ class MainActivity : AssentActivity()
                             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/BennyKok"))
                             startActivity(browserIntent)
                         }
-                        .positiveText(getString(R.string.unlock))
+                        .positiveText(if (unlocked) getString(R.string.unlocked) else getString(R.string.unlock))
                         .onPositive { _, _ ->
-                            unlockExtras()
+                            if (unlocked) {
+                                MaterialDialog.Builder(this)
+                                        .title("Unlocked!")
+                                        .content("Thank you so much, you have already unlocked. I will keep it up. Stay tuned for future updates.")
+                                        .positiveText("Got it")
+                                        .show()
+                            } else
+                                unlockExtras()
                         }
                         .neutralText("Libraries")
                         .onNeutral { _, _ ->
