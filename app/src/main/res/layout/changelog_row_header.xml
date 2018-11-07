@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chg_rowheader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingLeft="26dp"
+    android:paddingRight="26dp">
+
+    <!-- ChangeLog Header [Version] You have to use the id="chg_headerVersion" -->
+    <TextView
+        android:id="@+id/chg_headerVersion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textAllCaps="true"
+        android:textSize="12sp"/>
+
+    <!-- ChangeLog Header [Date] You have to use the id="chg_headerDate" -->
+    <TextView
+        android:id="@+id/chg_headerDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textAllCaps="true"
+        android:textSize="12sp"/>
+
+</LinearLayout>

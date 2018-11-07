@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="simple_message_item" type="id"/>
+    <item name="project_item" type="id"/>
+    <item name="simple_text_item" type="id"/>
+    <item name="simple_tutorial_item" type="id"/>
+    <item name="simple_tutorial_sub_item" type="id"/>
+</resources>

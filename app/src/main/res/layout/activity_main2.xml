@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="com.bennyv17.river.activity.Main2Activity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/scene_root"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical"
+                tools:showIn="@layout/activity_main2">
+
+                <include
+                    android:id="@+id/settings"
+                    layout="@layout/nav_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="onClick"
+                    android:paddingTop="8dp"
+                    android:text="Untitled"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:typeface="monospace"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_project_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="onClick"
+                    android:paddingTop="8dp"
+                    android:text="Project"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:typeface="monospace"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/project_card_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <include
+                    android:id="@+id/add_project"
+                    layout="@layout/nav_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/project_card_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/label_project_header" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_project_header2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="onClick"
+                    android:paddingTop="8dp"
+                    android:text="Learn"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:typeface="monospace"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bar_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:contentPaddingLeft="12dp"
+                    app:contentPaddingRight="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:strokeColor="#ddd"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true"
+                        android:orientation="horizontal">
+
+                        <include
+                            android:id="@+id/file"
+                            layout="@layout/nav_button" />
+
+                        <include
+                            android:id="@+id/action_undo"
+                            layout="@layout/nav_button" />
+
+                        <include
+                            android:id="@+id/action_redo"
+                            layout="@layout/nav_button" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/project_card_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:strokeColor="#ddd"
+                    app:strokeWidth="0dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/project_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="24dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/learn_card_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/label_project_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_project_header2"
+                    app:strokeColor="#ddd"
+                    app:strokeWidth="0dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tutorial_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/editor_card_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/bar_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_header"
+                    app:strokeColor="#ddd"
+                    app:strokeWidth="0dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/label_header"
+                        android:layout_marginBottom="40dp"
+                        android:fillViewport="true"
+                        android:scrollbars="horizontal">
+
+                        <ScrollView
+                            android:id="@+id/scrolle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fadeScrollbars="true"
+                            android:fillViewport="true"
+                            android:scrollbars="vertical"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                            <com.bennyv17.river.highlighter.view.SyntaxHighlightEditText
+                                android:id="@+id/editor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:gravity="top"
+                                android:imeOptions="flagNoExtractUi"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:minLines="1" />
+
+                        </ScrollView>
+
+                    </HorizontalScrollView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:paddingEnd="100dp"
+                        android:clipToPadding="false"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/editor_symbol_tool_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:onClick="onClick"
+        android:src="@drawable/ic_outline_play_arrow_24px"
+        android:tint="@color/md_white_1000"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:layout_anchor="@id/scene_root"
+        app:layout_anchorGravity="bottom|end" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

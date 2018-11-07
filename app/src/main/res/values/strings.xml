@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">River</string>
+    <string name="action_run">Run</string>
+    <string name="hint_type_in_message">Type in message…</string>
+    <string name="open">open</string>
+    <string name="_new">new</string>
+    <string name="playground">Playground</string>
+    <string name="style">Style</string>
+    <string name="increase_text_size">Increase Text Size</string>
+    <string name="decrease_text_size">Decrease Text Size</string>
+    <string name="scripts">Scripts</string>
+    <string name="size">size</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="search">Search…</string>
+    <string name="try_code">Try</string>
+    <string name="save">Save</string>
+    <string name="theme">Theme</string>
+    <string name="about">About</string>
+    <string name="new_script">New Script</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
+    <string name="unable_to_delete">Unable to delete</string>
+    <string name="deleted">Deleted</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="template">Template</string>
+    <string name="select_template_description">Select template for testing out different features.</string>
+    <string name="restart">Restart</string>
+    <string name="theme_">Theme</string>
+    <string name="default_">Default</string>
+    <string name="dark">Dark</string>
+    <string name="typeface">Typeface</string>
+    <string name="later">Later</string>
+    <string name="restart_title">Restart?</string>
+    <string name="restart_description">Require restart to apply the theme</string>
+    <string name="changelog">Changelog</string>
+    <string name="unlock_now">Unlock Now</string>
+    <string name="unlock">Unlock</string>
+    <string name="unlock_extras">Unlock Extras</string>
+    <string name="unlock_extras_description">Unlocking the extras gives full access to all the interactive tutorials and the dark theme, this means a lot to me and keep this project running.</string>
+    <string name="river_about"><![CDATA[
+            Created by BennyKok, with ♥ in Hong Kong<br><br>
+            River is still under development,
+            you can follow this project on GitHub<br><br>
+            You can also unlock the extras features(all in-app tutorials and dark theme) to support the development<br><br>
+            <a href=\"mailto:itechbenny@gmail.com\">itechbenny@gmail.com</a>
+         ]]>
+        </string>
+
+    <string-array name="editor_typeface">
+        <item>Default</item>
+        <item>Monospace</item>
+        <item>Noto Sans</item>
+    </string-array>
+
+    <string name="rs_tutorial_title_basic">Basic</string>
+    <string name="rs_tutorial_sub_title_triggers">Triggers</string>
+    <string name="rs_tutorial_sub_content_triggers">
+        Triggers is represented by a + sign in a new line.
+        RiveScript use pattern matching to map the triggers to
+        corresponding replies.
+    </string>
+    <string name="rs_tutorial_sub_title_replies">Replies</string>
+    <string name="rs_tutorial_sub_content_replies">
+        Replies is represented by a - sign in a new line under a trigger.
+        If there are multiple replies, a random reply will be picked as a response,
+    </string>
+
+    <string name="rs_tutorial_sub_title_triggers_note">Important Note</string>
+    <string name="rs_tutorial_sub_content_triggers_note">
+        A trigger is ALWAYS lower cased, and it doesn\'t
+        contain punctuation symbols. The interpreter doesn\'t care about the capitalizations
+        used in your messages: you can say \"Hello Bot\", \"HELLO BOT\",
+        or \"hello bot\" and it will match the trigger all the same.
+    </string>
+    <string name="intro">Intro</string>
+    <string name="more">More</string>
+    <string name="unlocked">Unlocked</string>
+    <string name="github">GitHub</string>
+
+
+</resources>

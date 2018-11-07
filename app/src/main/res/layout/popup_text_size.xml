@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="4dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="typeface"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/popup_typeface"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:gravity="start|center_vertical"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/popup_text_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingEnd="8dp"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:tint="?android:attr/textColorTertiary"
+                    android:id="@+id/popup_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/increase_text_size"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_remove_24dp" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:tint="?android:attr/textColorTertiary"
+                    android:id="@+id/popup_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/decrease_text_size"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_add_24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

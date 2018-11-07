@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="Dark Theme"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Typeface &amp; font size"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Theme"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/popup_typeface"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="start|center_vertical"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:strokeColor="@color/mybutton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/popup_text_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="24dp"
+        android:gravity="center|start"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_add"
+        app:layout_constraintEnd_toStartOf="@+id/popup_minus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_typeface" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/popup_minus"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/increase_text_size"
+        android:minWidth="10dp"
+        android:paddingStart="16dp"
+        app:icon="@drawable/ic_remove_24dp"
+        app:iconTint="?android:attr/textColorTertiary"
+        app:layout_constraintEnd_toStartOf="@+id/popup_add"
+        app:layout_constraintTop_toBottomOf="@+id/popup_typeface"
+        app:strokeColor="@color/mybutton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/popup_add"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/decrease_text_size"
+        android:minWidth="10dp"
+        android:paddingStart="16dp"
+        app:icon="@drawable/ic_add_24dp"
+        app:iconTint="?android:attr/textColorTertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_typeface"
+        app:strokeColor="@color/mybutton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
+    defaultConfig {
+        applicationId "com.bennyv17.river"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 7
+        versionName "2.0b"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
+
+    implementation 'com.afollestad:assent:2.2.0'
+    implementation 'com.mikepenz:aboutlibraries:6.2.0'
+    implementation 'com.github.johnpersano:supertoasts:2.0'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.10.0'
+    implementation 'agency.tango.android:material-intro-screen:0.0.5'
+    implementation 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
+    implementation "com.rivescript:rivescript-core:0.10.0"
+    implementation "com.mikepenz:itemanimators:1.0.0@aar"
+    implementation 'com.mikepenz:fastadapter:3.3.1'
+    implementation'com.mikepenz:fastadapter-commons:3.3.1@aar'
+    implementation 'com.mikepenz:fastadapter-extensions-expandable:3.3.1'
+    implementation 'com.mikepenz:materialize:1.2.0'
+    implementation'com.afollestad.material-dialogs:core:2.0.0-beta4'
+    implementation 'com.afollestad.material-dialogs:input:2.0.0-beta4'
+}

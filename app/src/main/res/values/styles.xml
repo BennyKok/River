@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/md_white_1000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="md_corner_radius">16dp</item>
+        <item name="exampleTextBackground">#e0e0e0</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/md_white_1000</item>
+        <item name="colorAccent">@color/md_white_1000</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="md_corner_radius">16dp</item>
+        <item name="exampleTextBackground">#3b3b3b</item>
+    </style>
+
+    <style name="AppTheme.Intro" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+</resources>

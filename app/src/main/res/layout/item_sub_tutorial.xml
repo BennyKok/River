@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:paddingTop="8dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:paddingStart="20dp"
+        android:id="@+id/tutorial_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:paddingStart="20dp"
+        android:id="@+id/tutorial_sub_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Content"
+        android:textSize="16sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:fillViewport="true"
+        android:scrollbars="horizontal">
+
+        <com.bennyv17.river.highlighter.view.LineNumberEditText
+            android:id="@+id/tutorial_code_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?exampleTextBackground"
+            android:focusable="false"
+            android:fontFamily="monospace"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:longClickable="false"
+            android:textSize="16sp" />
+
+    </HorizontalScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tutorial_try_button"
+        style="?attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="4dp"
+        android:text="@string/try_code"
+        android:textSize="12sp" />
+
+</LinearLayout>

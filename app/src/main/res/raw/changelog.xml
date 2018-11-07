@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog bulletedList="true">
+
+    <changelogversion versionName="2.0b" changeDate="Nov 2018">
+        <changelogtext>Entire UI Refresh</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="1.3b" changeDate="Late Dec 2017">
+        <changelogtext>Enable UTF-8</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="1.2b" changeDate="Dec 2017">
+        <changelogtext>Using UTF-8 encoding for all script</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="1.1b" changeDate="Oct 2017">
+        <changelogtext>Bug fix(crash on start)</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="1.0b" changeDate="Oct 2017">
+        <changelogtext>Initial beta release.</changelogtext>
+    </changelogversion>
+
+</changelog>

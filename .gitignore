@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Stores
+/build
+/captures
+.externalNativeBuild
+/app/src/main/java/com/bennyv17/river/PrivateData.kt
+.idea/caches/
+.idea/codeStyles/
+app/libs/
+release/
