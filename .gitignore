@@ -12,3 +12,4 @@
 .idea/codeStyles/
 app/libs/
 release/
+/app/src/main/res/values-v1/secrets.xml

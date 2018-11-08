@@ -37,7 +37,6 @@ import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.bennyv17.river.BuildConfig
-import com.bennyv17.river.PrivateData
 import com.bennyv17.river.R
 import com.bennyv17.river.highlighter.syntax.RiveScriptSyntax
 import com.bennyv17.river.highlighter.theme.RiveScriptDefaultTheme
@@ -286,7 +285,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         (settings as ImageButton).setImageResource(R.drawable.ic_outline_settings_24px)
         (add_project as ImageButton).setImageResource(R.drawable.ic_add_24dp)
 
-        bp = BillingProcessor.newBillingProcessor(this, PrivateData.licenceKey, this)
+        bp = BillingProcessor.newBillingProcessor(this, resources.getString(R.string.licence_key), this)
         bp.initialize()
 
         if (checkPermissions(false) && pref!!.getString("previousVersion", "") != BuildConfig.VERSION_NAME) {
@@ -489,14 +488,14 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     }
 
     override fun onPurchaseHistoryRestored() {
-        unlocked = bp.isPurchased(PrivateData.sku1)
+        unlocked = bp.isPurchased(resources.getString(R.string.sku1))
         pref!!.edit().putBoolean(pref_id_unlocked, unlocked).apply()
 
         updateUnlockedState()
     }
 
     override fun onProductPurchased(productId: String, details: TransactionDetails?) {
-        unlocked = productId == PrivateData.sku1
+        unlocked = productId == resources.getString(R.string.sku1)
 
         updateUnlockedState()
     }
@@ -525,7 +524,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             positiveButton(R.string.unlock_now) {
                 if (BillingProcessor.isIabServiceAvailable(this@Main2Activity) && bp.isOneTimePurchaseSupported) {
                     bp.loadOwnedPurchasesFromGoogle()
-                    bp.purchase(this@Main2Activity, PrivateData.sku1)
+                    bp.purchase(this@Main2Activity, resources.getString(R.string.sku1))
                 } else {
                     Tool.toast(this@Main2Activity, "IAB services not available")
                 }
