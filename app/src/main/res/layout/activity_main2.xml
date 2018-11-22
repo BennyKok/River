@@ -60,10 +60,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/label_project_header"
+                    android:id="@+id/label_project"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:onClick="onClick"
@@ -72,10 +73,10 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     android:typeface="monospace"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toTopOf="@+id/project_card_container"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/label_learn"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <include
                     android:id="@+id/add_project"
@@ -84,12 +85,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/project_card_container"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/label_project_header" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/label_project_header2"
+                    android:id="@+id/label_learn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="42dp"
@@ -153,23 +153,24 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/project_card_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
                     app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="0dp"
                     app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_project"
                     app:strokeColor="#ddd"
                     app:strokeWidth="0dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/project_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:paddingStart="24dp"
                         android:paddingTop="8dp"
                         android:paddingEnd="16dp"
@@ -180,23 +181,23 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/learn_card_container"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/label_project_header"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_project_header2"
+                    app:layout_constraintTop_toBottomOf="@+id/label_learn"
                     app:strokeColor="#ddd"
                     app:strokeWidth="0dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/tutorial_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:clipToPadding="false"
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

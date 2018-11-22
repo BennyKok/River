@@ -28,7 +28,6 @@ import com.afollestad.assent.Permission
 import com.afollestad.assent.askForPermissions
 import com.afollestad.assent.isAllGranted
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.input.input
@@ -65,6 +64,12 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             R.id.fab_play -> runScript()
 //            R.id.label_header -> rename()
             R.id.file -> {
+                goToProject()
+            }
+            R.id.label_learn -> {
+                goToLearn()
+            }
+            R.id.label_project -> {
                 goToProject()
             }
             R.id.settings -> settingsDialog()
@@ -108,21 +113,24 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
 
             if (!unlocked)
                 theme.isEnabled = false
-            theme.setOnClickListener { it ->
-                MaterialDialog(this@Main2Activity).show {
-                    title(R.string.restart_title)
-                    message(R.string.restart_description)
-                    negativeButton(R.string.cancel) {
-                        theme.isChecked = false
-                    }
-                    onDismiss {
-                        theme.isChecked = false
-                    }
-                    positiveButton(R.string.restart) {
-                        pref!!.edit().putBoolean(pref_id_dark_theme, theme.isChecked).apply()
-                        recreate()
-                    }
-                }
+
+            theme.isChecked = pref!!.getBoolean(pref_id_dark_theme,false)
+            theme.setOnCheckedChangeListener { buttonView, isChecked ->
+                pref!!.edit().putBoolean(pref_id_dark_theme, isChecked).apply()
+                recreate()
+//                MaterialDialog(this@Main2Activity).show {
+//                    title(R.string.restart_title)
+//                    message(R.string.restart_description)
+//                    negativeButton(R.string.cancel) {
+//                        theme.isChecked = false
+//                    }
+//                    onDismiss {
+//                        theme.isChecked = false
+//                    }
+//                    positiveButton(R.string.restart) {
+//
+//                    }
+//                }
             }
 
             popup_text_size.text = editorTextSize.toString() + "sp"
@@ -302,7 +310,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         }
 
         hideEditButton()
-        goToProject()
+        goToLearn()
     }
 
     private fun initTutorial() {
@@ -342,6 +350,30 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         }
     }
 
+    private fun goToLearn() {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
+        beginTrans()
+
+        hideEditButton()
+
+        editor_card_container.visibility = View.GONE
+        bar_container.visibility = View.GONE
+        label_header.visibility = View.GONE
+
+        project_card_container.visibility = View.GONE
+
+        settings.visibility = View.VISIBLE
+        add_project.visibility = View.GONE
+
+        label_project.visibility = View.VISIBLE
+        label_learn.visibility = View.VISIBLE
+        label_project.alpha = 0.5f
+        label_learn.alpha = 1f
+
+        learn_card_container.visibility = View.VISIBLE
+    }
+
     private fun goToProject() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
@@ -353,11 +385,17 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         bar_container.visibility = View.GONE
         label_header.visibility = View.GONE
 
-        label_project_header.visibility = View.VISIBLE
-        label_project_header2.visibility = View.VISIBLE
         project_card_container.visibility = View.VISIBLE
-        learn_card_container.visibility = View.VISIBLE
+
+        settings.visibility = View.GONE
         add_project.visibility = View.VISIBLE
+
+        label_project.visibility = View.VISIBLE
+        label_learn.visibility = View.VISIBLE
+        label_project.alpha = 1f
+        label_learn.alpha = 0.5f
+
+        learn_card_container.visibility = View.GONE
     }
 
     private fun goToEdit(setEditor: Boolean = true) {
@@ -371,12 +409,14 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
 
         focusEditor()
 
+        settings.visibility = View.VISIBLE
+
         editor_card_container.visibility = View.VISIBLE
         bar_container.visibility = View.VISIBLE
         label_header.visibility = View.VISIBLE
 
-        label_project_header.visibility = View.GONE
-        label_project_header2.visibility = View.GONE
+        label_project.visibility = View.GONE
+        label_learn.visibility = View.GONE
         project_card_container.visibility = View.GONE
         learn_card_container.visibility = View.GONE
         add_project.visibility = View.GONE
@@ -386,8 +426,8 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         TransitionManager.beginDelayedTransition(scene_root, TransitionSet()
                 .addTransition(Fade()
                         .addTarget(label_header)
-                        .addTarget(label_project_header)
-                        .addTarget(label_project_header2)
+                        .addTarget(label_project)
+                        .addTarget(label_learn)
                         .addTarget(project_card_container)
                         .addTarget(learn_card_container)
                         .addTarget(add_project)

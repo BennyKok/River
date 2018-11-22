@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import com.bennyv17.river.R
 import com.bennyv17.river.item.SimpleMessageItem
 import com.bennyv17.river.util.Tool
@@ -16,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_rive_script_playground.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.io.File
 import java.util.regex.Pattern
+import android.content.ClipData
+import android.content.ClipboardManager
+
 
 class RiveScriptPlayground : AppCompatActivity() {
 
@@ -61,7 +66,8 @@ class RiveScriptPlayground : AppCompatActivity() {
         conversation_list.adapter = conversationAdapter
 
         conversationAdapter.withSelectable(false)
-        conversationAdapter.withOnClickListener { _, _, _, _ ->
+        conversationAdapter.withOnClickListener { _, _, item, _ ->
+
             true
         }
 
@@ -120,14 +126,31 @@ class RiveScriptPlayground : AppCompatActivity() {
     }
 
     private fun postInput(input: String, bot: RiveScript) {
-        conversationAdapter.add(SimpleMessageItem("You", input, true))
+        conversationAdapter.add(
+                SimpleMessageItem("You", input, true).withCopyOption()
+        )
         conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
 
         val reply = bot.reply("user", input)
 
-        conversationAdapter.add(SimpleMessageItem(scriptFile.nameWithoutExtension, reply, false))
+        conversationAdapter.add(
+                SimpleMessageItem(scriptFile.nameWithoutExtension, reply, false).withCopyOption()
+        )
         conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
 
         user_input.text!!.clear()
+    }
+
+    private fun SimpleMessageItem.withCopyOption(): SimpleMessageItem {
+        withClickListener {
+            MaterialDialog(this@RiveScriptPlayground).show {
+                listItems(items = arrayListOf("Copy")) { dialog, index, text ->
+                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("River", this@withCopyOption.message)
+                    clipboard.primaryClip = clip
+                }
+            }
+        }
+        return this
     }
 }

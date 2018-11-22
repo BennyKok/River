@@ -6,6 +6,6 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:padding="14dp"
-    android:tint="@color/accent"
+    android:tint="?attr/colorAccent"
     android:src="@drawable/ic_folder_open_24dp"
     tools:showIn="@layout/activity_main2" />

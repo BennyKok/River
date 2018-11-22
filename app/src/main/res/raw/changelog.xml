@@ -3,6 +3,9 @@
 
     <changelogversion versionName="2.0b" changeDate="Nov 2018">
         <changelogtext>Entire UI Refresh</changelogtext>
+        <changelogtext>UI flow change</changelogtext>
+        <changelogtext>You can now copy chat text!</changelogtext>
+        <changelogtext>More updates are coming soon!!!</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="1.3b" changeDate="Late Dec 2017">

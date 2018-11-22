@@ -44,10 +44,8 @@ class SimpleMessageItem(private var sender: String? = null, var message: String?
             (viewHolder.message.layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
         }
 
-        if (listener != null)
-            viewHolder.message.setOnClickListener(listener)
-        if (longListener != null)
-            viewHolder.message.setOnLongClickListener(longListener)
+        viewHolder.message.setOnClickListener(listener)
+        viewHolder.message.setOnLongClickListener(longListener)
     }
 
     override fun unbindView(holder: ViewHolder?) {
