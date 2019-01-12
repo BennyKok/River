@@ -20,15 +20,16 @@ import java.io.File
 import java.util.regex.Pattern
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.os.Debug
 import android.util.Log
+import com.bennyv17.river.callback.JsrsCallback
+import com.bennyv17.river.callback.JsrsInterface
 import com.evgenii.jsevaluator.JsEvaluator
 import java.io.IOException
 import java.util.*
 import com.evgenii.jsevaluator.interfaces.JsCallback
 
 
-class RiveScriptPlayground : AppCompatActivity() {
+class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
 
     private lateinit var conversationAdapter: FastItemAdapter<SimpleMessageItem>
     private lateinit var suggestionAdapter: FastItemAdapter<SimpleMessageItem>
@@ -68,7 +69,6 @@ class RiveScriptPlayground : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         pref = getSharedPreferences(Main2Activity.pref_id, Context.MODE_PRIVATE)
         if (pref!!.getBoolean(Main2Activity.pref_id_dark_theme, false)) {
             setTheme(R.style.AppTheme_Dark)
@@ -77,6 +77,9 @@ class RiveScriptPlayground : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_rive_script_playground)
+
+        jsEvaluator.webViewWrapper
+        jsEvaluator.webView.addJavascriptInterface(JsrsInterface(this), "river")
 
         if (intent.extras == null) finish()
         val scriptPath = intent.extras.getString(Main2Activity.extra_scrip_data, null)
@@ -165,17 +168,33 @@ class RiveScriptPlayground : AppCompatActivity() {
         }
     }
 
+    override fun onReply(reply: String) {
+        runOnUiThread {
+            conversationAdapter.add(
+                    SimpleMessageItem(scriptFile.nameWithoutExtension, reply, false).withCopyOption()
+            )
+            conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
+        }
+    }
+
     fun getReply(code: String, user: String, input: String) {
-        var jsCode = loadJs("rivescript.min.js")
-        jsCode += loadJs("rsrunner.js")
+        var jsCode = ""
+
+        when (selectedInterpreter) {
+            1 -> {
+                jsCode += loadJs("rivescript2_0a6.min.js")
+                jsCode += loadJs("rsrunner2_0a6.js")
+            }
+            2 -> {
+                jsCode += loadJs("rivescript.min.js")
+                jsCode += loadJs("rsrunner.js")
+            }
+        }
         jsEvaluator.callFunction(jsCode,
                 object : JsCallback {
 
                     override fun onResult(result: String) {
-                        conversationAdapter.add(
-                                SimpleMessageItem(scriptFile.nameWithoutExtension, result, false).withCopyOption()
-                        )
-                        conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
+
                     }
 
                     override fun onError(errorMessage: String) {
@@ -190,14 +209,15 @@ class RiveScriptPlayground : AppCompatActivity() {
         )
         conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
 
-        when (selectedInterpreter){
-            0->{
+        when (selectedInterpreter) {
+            0 -> {
                 conversationAdapter.add(
                         SimpleMessageItem(scriptFile.nameWithoutExtension, bot.reply("user", input), false).withCopyOption()
                 )
                 conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
             }
             1 -> getReply(code, "user", input)
+            2 -> getReply(code, "user", input)
         }
 
         user_input.text!!.clear()

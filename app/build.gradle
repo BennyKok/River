@@ -9,8 +9,8 @@ android {
         applicationId "com.bennyv17.river"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 11
-        versionName "2.3b"
+        versionCode 12
+        versionName "2.4b"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -58,7 +58,8 @@
 
     <string-array name="editor_interpreter">
         <item>Java (Stable)</item>
-        <item>JS (Experimental) (Up-to-date) (1.19.0)</item>
+        <item>JS (Experimental) (2.0a6)</item>
+        <item>JS (Experimental) (1.19.0)</item>
     </string-array>
 
     <string name="rs_tutorial_title_basic">Basic</string>

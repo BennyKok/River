@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog bulletedList="true">
 
+    <changelogversion versionName="2.4b" changeDate="Jan 2019">
+        <changelogtext>Added alpha version of RiveScript interpreter option</changelogtext>
+    </changelogversion>
+
     <changelogversion versionName="2.3b" changeDate="Jan 2019">
         <changelogtext>Added the latest RiveScript interpreter option</changelogtext>
     </changelogversion>
