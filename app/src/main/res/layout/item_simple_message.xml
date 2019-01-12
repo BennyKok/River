@@ -12,6 +12,7 @@
         android:layout_margin="8dp"
         android:background="@color/transparent"
         android:minWidth="20dp"
+        android:textColor="?android:attr/textColorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp"
         app:cornerRadius="16dp" />

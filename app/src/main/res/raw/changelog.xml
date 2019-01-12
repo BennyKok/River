@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog bulletedList="true">
 
+    <changelogversion versionName="2.3b" changeDate="Jan 2019">
+        <changelogtext>Added the latest RiveScript interpreter option</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="2.2b" changeDate="Late Nov 2018">
+        <changelogtext>Specific tutorial script error fixed</changelogtext>
+        <changelogtext>Try code flow improved</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="2.1b" changeDate="Late Nov 2018">
+        <changelogtext>UI update</changelogtext>
+        <changelogtext>UI visibility fix</changelogtext>
+    </changelogversion>
+
     <changelogversion versionName="2.0b" changeDate="Nov 2018">
         <changelogtext>Entire UI Refresh</changelogtext>
         <changelogtext>UI flow change</changelogtext>

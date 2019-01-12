@@ -5,6 +5,13 @@
     android:background="?android:attr/selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tutorial_section_background"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="180dp"
+        android:src="@drawable/ic_section_1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/tutorial_section_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +28,7 @@
         android:id="@+id/tutorial_section_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/tutorial_section_arrow"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"

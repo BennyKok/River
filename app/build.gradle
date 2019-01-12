@@ -9,8 +9,8 @@ android {
         applicationId "com.bennyv17.river"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "2.0b"
+        versionCode 11
+        versionName "2.3b"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,12 +24,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.anjlab.android.iab.v3:library:1.0.44'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.core:core-ktx:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
@@ -53,4 +53,7 @@ dependencies {
     implementation 'com.mikepenz:materialize:1.2.0'
     implementation'com.afollestad.material-dialogs:core:2.0.0-beta4'
     implementation 'com.afollestad.material-dialogs:input:2.0.0-beta4'
+
+    implementation 'com.github.evgenyneu:js-evaluator-for-android:v5.0.0'
+
 }

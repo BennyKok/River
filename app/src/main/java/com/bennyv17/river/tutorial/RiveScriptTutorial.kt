@@ -11,14 +11,15 @@ object RiveScriptTutorial : Tutorial {
         val ls = System.getProperty("line.separator")
         return arrayListOf(
 
-                SimpleTutorialItem("RiveScript", false).withSubItems(arrayListOf(
-                        SimpleSubTutorialItem("RiveScript", "RiveScript is an extreme lightweight text-based scripting language which is used for chatbot development. The core feature of RiveScript is the pattern matching, which makes it very easy to program a human-like chatbot without programming knowledge. With RiveScript interpreter, you can bind RiveScript functionality to most popular programming language, which enable you to integrate a chatbot almost everywhere.")
+                SimpleTutorialItem("",R.drawable.ic_section_1, false).withSubItems(arrayListOf(
+                        SimpleSubTutorialItem("RiveScript", "RiveScript is an extreme lightweight text-based scripting language which is used for chatbot development developed by Noah Petherbridge from aichaos and maintained as an open source project on GitHub.$ls$ls"
+                                + "The core feature of RiveScript is the pattern matching, which makes it very easy to program a human-like chatbot without programming knowledge. With RiveScript interpreter, you can bind RiveScript functionality to most popular programming language, which enable you to integrate a chatbot almost everywhere.")
                         , SimpleSubTutorialItem("River", "River itself is a third-party IDE for the RiveScript, providing a syntax highlighted editor, and bundled with the Java version of the RiveScript interpreter, and let you test out your script instantly. Also with interactive tutorials, and templates.")
                 )) as SimpleTutorialItem
 
                 ,
 
-                SimpleTutorialItem(R.string.rs_tutorial_title_basic, false).withSubItems(arrayListOf(
+                SimpleTutorialItem("",R.drawable.ic_section_2, false).withSubItems(arrayListOf(
                         SimpleSubTutorialItem(R.string.rs_tutorial_sub_title_triggers,
                                 R.string.rs_tutorial_sub_content_triggers)
                         ,
@@ -104,7 +105,7 @@ object RiveScriptTutorial : Tutorial {
                 SimpleTutorialItem("User Input", true).withSubItems(arrayListOf(
                         SimpleSubTutorialItem("Reply more naturally",
                                 "Use a \"*\"(wildcard) in the triggers to capture variable inputs from user and you can include a \"<star>\" tag in the reply to combine the variable input with the rest of the reply to make the reply more contextually relevant.",
-                                "+ I am *$ls" +
+                                "+ i am *$ls" +
                                         "- Hello <star>",
                                 callback)
                         ,
@@ -116,7 +117,7 @@ object RiveScriptTutorial : Tutorial {
                         ,
                         SimpleSubTutorialItem("Reply more naturally 3",
                                 "You can use wildcard, without a <star> tag in the replies, to act as a generic response.",
-                                "+ I feel *$ls" +
+                                "+ i feel *$ls" +
                                         "- I feel it too.$ls" +
                                         "- Is it called emotion?$ls" +
                                         "- Sorry, I don\'t understand feelings",
@@ -124,7 +125,7 @@ object RiveScriptTutorial : Tutorial {
                         ,
                         SimpleSubTutorialItem("Specialized Wildcards usage 1",
                                 "There are all together 3 type of specialized wildcards in RiveScript, \"*\"(for everything) \"_\"(only words, no space) \"#\"(only number).",
-                                "+ I am # year-old$ls" +
+                                "+ i am # year-old$ls" +
                                         "- Cool you are just <star> year-old.$ls$ls" +
                                         "+ My name is _$ls" +
                                         "- Hello <star>.",

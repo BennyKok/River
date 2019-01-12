@@ -20,6 +20,12 @@ import java.io.File
 import java.util.regex.Pattern
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Debug
+import android.util.Log
+import com.evgenii.jsevaluator.JsEvaluator
+import java.io.IOException
+import java.util.*
+import com.evgenii.jsevaluator.interfaces.JsCallback
 
 
 class RiveScriptPlayground : AppCompatActivity() {
@@ -27,9 +33,37 @@ class RiveScriptPlayground : AppCompatActivity() {
     private lateinit var conversationAdapter: FastItemAdapter<SimpleMessageItem>
     private lateinit var suggestionAdapter: FastItemAdapter<SimpleMessageItem>
 
+    val jsEvaluator = JsEvaluator(this)
+
     private var pref: SharedPreferences? = null
 
     lateinit var scriptFile: File
+
+    var code = ""
+
+    private lateinit var bot: RiveScript
+
+    private var selectedInterpreter = 0
+
+
+    private fun loadJs(fileName: String): String? {
+        try {
+            return readFile(fileName)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+    @Throws(IOException::class)
+    private fun readFile(fileName: String): String {
+        val am = assets
+        val inputStream = am.open(fileName)
+
+        val scanner = Scanner(inputStream, "UTF-8")
+        return scanner.useDelimiter("\\A").next()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +86,18 @@ class RiveScriptPlayground : AppCompatActivity() {
 
         info.text = "Type in anything to chat with " + scriptFile.nameWithoutExtension
 
-        val bot = RiveScript(Config.Builder
-                .utf8()
-                .unicodePunctuation("[.,!?;:]")
-                .build())
-        bot.loadFile(scriptFile)
-        bot.sortReplies()
+        selectedInterpreter = pref!!.getInt(Main2Activity.pref_id_editor_interpreter, 0)
+
+        label_interpreter.text = "Interpreter : " + resources.getStringArray(R.array.editor_interpreter)[selectedInterpreter]
+
+        if (selectedInterpreter == 0) {
+            bot = RiveScript(Config.Builder
+                    .utf8()
+                    .unicodePunctuation("[.,!?;:]")
+                    .build())
+            bot.loadFile(scriptFile)
+            bot.sortReplies()
+        }
 
         conversation_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         conversation_list.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
@@ -93,7 +133,7 @@ class RiveScriptPlayground : AppCompatActivity() {
                     isSelf = true,
                     autoGravity = false
             ).withClickListener {
-                postInput(suggestion, bot)
+                postInput(script, suggestion)
             }.withLongClickListener {
                 user_input.setText(suggestion)
                 user_input.setSelection(user_input.text!!.length)
@@ -113,7 +153,7 @@ class RiveScriptPlayground : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            postInput(input, bot)
+            postInput(script, input)
         }
 
         KeyboardVisibilityEvent.setEventListener(this) { isOpen ->
@@ -125,18 +165,40 @@ class RiveScriptPlayground : AppCompatActivity() {
         }
     }
 
-    private fun postInput(input: String, bot: RiveScript) {
+    fun getReply(code: String, user: String, input: String) {
+        var jsCode = loadJs("rivescript.min.js")
+        jsCode += loadJs("rsrunner.js")
+        jsEvaluator.callFunction(jsCode,
+                object : JsCallback {
+
+                    override fun onResult(result: String) {
+                        conversationAdapter.add(
+                                SimpleMessageItem(scriptFile.nameWithoutExtension, result, false).withCopyOption()
+                        )
+                        conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
+                    }
+
+                    override fun onError(errorMessage: String) {
+                        Log.d("Shit", errorMessage)
+                    }
+                }, "getRsReply", code, user, input)
+    }
+
+    private fun postInput(code: String, input: String) {
         conversationAdapter.add(
                 SimpleMessageItem("You", input, true).withCopyOption()
         )
         conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
 
-        val reply = bot.reply("user", input)
-
-        conversationAdapter.add(
-                SimpleMessageItem(scriptFile.nameWithoutExtension, reply, false).withCopyOption()
-        )
-        conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
+        when (selectedInterpreter){
+            0->{
+                conversationAdapter.add(
+                        SimpleMessageItem(scriptFile.nameWithoutExtension, bot.reply("user", input), false).withCopyOption()
+                )
+                conversation_list.scrollToPosition(conversationAdapter.itemCount - 1)
+            }
+            1 -> getReply(code, "user", input)
+        }
 
         user_input.text!!.clear()
     }

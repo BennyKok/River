@@ -24,16 +24,16 @@ class ProjectItem(var title: String)
         super.bindView(holder, payloads)
 
         holder.title.text = title
-        holder.itemView.setOnClickListener(listener)
-        holder.itemView.setOnLongClickListener(longListener)
+        holder.title.setOnClickListener(listener)
+        holder.title.setOnLongClickListener(longListener)
     }
 
     override fun unbindView(holder: ViewHolder?) {
         super.unbindView(holder)
 
         holder?.title?.text = null
-        holder?.itemView?.setOnClickListener(null)
-        holder?.itemView?.setOnLongClickListener(null)
+        holder?.title?.setOnClickListener(null)
+        holder?.title?.setOnLongClickListener(null)
     }
 
     fun withClickListener(listener: () -> Unit): ProjectItem {

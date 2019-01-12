@@ -6,7 +6,7 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorPrimary">@color/md_white_1000</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/md_dark_cards</item>
 
         <item name="android:windowTranslucentStatus">true</item>
 

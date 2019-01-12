@@ -13,15 +13,15 @@ import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
 import com.mikepenz.fastadapter.listeners.OnClickListener
 import com.mikepenz.materialize.holder.StringHolder
 
-class SimpleTutorialItem(val title: StringHolder, var locked: Boolean = true) : AbstractExpandableItem<SimpleTutorialItem, SimpleTutorialItem.ViewHolder, SimpleSubTutorialItem>() {
+class SimpleTutorialItem(val title: StringHolder, val showBackground: Boolean, val background: Int, var locked: Boolean = true) : AbstractExpandableItem<SimpleTutorialItem, SimpleTutorialItem.ViewHolder, SimpleSubTutorialItem>() {
 
-    constructor(sectionTitle: String, locked: Boolean) : this(StringHolder(sectionTitle), locked)
+    constructor(sectionTitle: String, locked: Boolean) : this(StringHolder(sectionTitle),false,-1, locked)
 
-    constructor(sectionTitle: String) : this(StringHolder(sectionTitle))
+    constructor(sectionTitle: String, background: Int, locked: Boolean) : this(StringHolder(sectionTitle),true,background, locked)
 
-    constructor(@StringRes sectionTitle: Int, locked: Boolean) : this(StringHolder(sectionTitle), locked)
+    constructor(@StringRes sectionTitle: Int, background: Int, locked: Boolean) : this(StringHolder(sectionTitle), true, background, locked)
 
-    constructor(@StringRes sectionTitle: Int) : this(StringHolder(sectionTitle))
+    constructor(@StringRes sectionTitle: Int, locked: Boolean) : this(StringHolder(sectionTitle), false, -1, locked)
 
     private var mOnClickListener: OnClickListener<SimpleTutorialItem>? = null
 
@@ -45,10 +45,18 @@ class SimpleTutorialItem(val title: StringHolder, var locked: Boolean = true) : 
         super.bindView(holder, payloads)
 
         StringHolder.applyTo(title, holder?.titleTextView)
-        updateTitleSize(this, holder!!.itemView,false)
+        updateTitleSize(this, holder!!.itemView, false)
 
         holder!!.lockedIcon.visibility = if (!locked) View.GONE else View.VISIBLE
         holder.titleTextView.alpha = if (locked) 0.5f else 1f
+
+        if (showBackground) {
+            holder.background.visibility = View.VISIBLE
+            holder.background.setImageResource(background)
+        }else {
+            holder.background.visibility = View.GONE
+            holder.background.setImageDrawable(null)
+        }
     }
 
     override fun unbindView(holder: ViewHolder?) {
@@ -56,6 +64,7 @@ class SimpleTutorialItem(val title: StringHolder, var locked: Boolean = true) : 
 
         holder?.titleTextView?.text = null
         holder?.arrowIcon?.clearAnimation()
+        holder?.background?.setImageDrawable(null)
     }
 
     fun getOnClickListener(): OnClickListener<SimpleTutorialItem> {
@@ -76,13 +85,13 @@ class SimpleTutorialItem(val title: StringHolder, var locked: Boolean = true) : 
     private val onClickListener = OnClickListener<SimpleTutorialItem> { v, adapter, item, position ->
         if (item.subItems != null && !locked) {
             //Log.d("Hey","Shit")
-            updateTitleSize(item, v!!,true)
+            updateTitleSize(item, v!!, true)
             return@OnClickListener mOnClickListener == null || mOnClickListener!!.onClick(v, adapter, item, position)
         }
         mOnClickListener != null && mOnClickListener!!.onClick(v, adapter, item, position)
     }
 
-    private fun updateTitleSize(item: SimpleTutorialItem, v: View, animate : Boolean) {
+    private fun updateTitleSize(item: SimpleTutorialItem, v: View, animate: Boolean) {
         if (!item.isExpanded) {
             v.findViewById<View>(R.id.tutorial_section_arrow).animate().rotation(-90f)
 
@@ -128,5 +137,6 @@ class SimpleTutorialItem(val title: StringHolder, var locked: Boolean = true) : 
         val titleTextView: TextView = view.findViewById(R.id.tutorial_section_title)
         val arrowIcon: ImageView = view.findViewById(R.id.tutorial_section_arrow)
         val lockedIcon: ImageView = view.findViewById(R.id.tutorial_section_locked_icon)
+        val background: ImageView = view.findViewById(R.id.tutorial_section_background)
     }
 }

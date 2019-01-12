@@ -15,6 +15,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.OvershootInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +53,7 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.listeners.OnClickListener
 import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.item_project.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.io.File
 
@@ -74,6 +76,12 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             }
             R.id.settings -> settingsDialog()
             R.id.add_project -> newScript()
+//            R.id.navigation_button -> {
+//                when {
+//                    learn_card_container.visibility == View.GONE -> goToLearn()
+//                    project_card_container.visibility == View.GONE -> goToProject()
+//                }
+//            }
         }
     }
 
@@ -81,11 +89,11 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         val dialog = MaterialDialog(this).show {
             title(text = "Settings")
             customView(R.layout.dialog_settings)
-            negativeButton(R.string.about) {
+            positiveButton(R.string.about) {
                 showAbout()
             }
             if (!unlocked)
-                positiveButton(text = if (unlocked) getString(R.string.unlocked) else getString(R.string.unlock)) {
+                neutralButton(text = if (unlocked) getString(R.string.unlocked) else getString(R.string.unlock)) {
                     if (unlocked) {
                         MaterialDialog(this@Main2Activity)
                                 .title(text = "Unlocked!")
@@ -95,7 +103,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
                     } else
                         unlockExtras()
                 }
-            neutralButton(text = "Libraries") {
+            negativeButton(text = "Libraries") {
                 LibsBuilder()
                         .withActivityStyle(if (darkTheme) Libs.ActivityStyle.DARK else Libs.ActivityStyle.LIGHT)
                         .withActivityTitle("Libraries")
@@ -107,6 +115,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         with(dialog.getCustomView()!!) {
             val theme = findViewById<Switch>(R.id.switch1)
             val popup_typeface = findViewById<Button>(R.id.popup_typeface)
+            val popup_interpreter = findViewById<Button>(R.id.popup_interpreter)
             val popup_text_size = findViewById<TextView>(R.id.popup_text_size)
             val popup_add = findViewById<Button>(R.id.popup_add)
             val popup_minus = findViewById<Button>(R.id.popup_minus)
@@ -114,7 +123,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             if (!unlocked)
                 theme.isEnabled = false
 
-            theme.isChecked = pref!!.getBoolean(pref_id_dark_theme,false)
+            theme.isChecked = pref!!.getBoolean(pref_id_dark_theme, false)
             theme.setOnCheckedChangeListener { buttonView, isChecked ->
                 pref!!.edit().putBoolean(pref_id_dark_theme, isChecked).apply()
                 recreate()
@@ -162,6 +171,22 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
                         popup_typeface.text = text
 
                         updateEditorTypeface()
+                    }
+                }
+
+            }
+
+            val selectedInterpreter = pref!!.getInt(pref_id_editor_interpreter, 0)
+            popup_interpreter.text = resources.getStringArray(R.array.editor_interpreter)[selectedInterpreter]
+            popup_interpreter.setOnClickListener {
+                MaterialDialog(this@Main2Activity).show {
+                    title(R.string.typeface)
+                    listItemsSingleChoice(
+                            res = R.array.editor_interpreter,
+                            initialSelection = pref!!.getInt(pref_id_editor_interpreter, 0))
+                    { dialog, index, text ->
+                        pref!!.edit().putInt(pref_id_editor_interpreter, index).apply()
+                        popup_interpreter.text = text
                     }
                 }
 
@@ -246,6 +271,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
         const val pref_id_project_dir = "projectDir"
         const val pref_id_last_opened_script = "lastOpenedScript"
         const val pref_id_editor_typeface = "editorTypeface"
+        const val pref_id_editor_interpreter = "editorInterpreter"
         const val pref_id_editor_text_size = "editorTextSize"
     }
 
@@ -254,6 +280,8 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     private val expandableExtension = ExpandableExtension<SimpleTutorialItem>()
 
     private val s = "! version = 2.0\n\n+ hello bot\n- Hello human!"
+
+    private var previousTryCode: Boolean = false
 
     //on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -351,11 +379,17 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     }
 
     private fun goToLearn() {
+//        navigation_button.text = "Go to Project"
+//        navigation_button.setIconResource(R.drawable.ic_folder_open_24dp)
+
+
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
         beginTrans()
 
         hideEditButton()
+
+//        navigation_button.visibility = View.VISIBLE
 
         editor_card_container.visibility = View.GONE
         bar_container.visibility = View.GONE
@@ -375,11 +409,21 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     }
 
     private fun goToProject() {
+//        navigation_button.text = "Go to Learn"
+//        navigation_button.setIconResource(R.drawable.ic_live_help_24dp)
+
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
         beginTrans()
 
         hideEditButton()
+
+//        navigation_button.visibility = View.VISIBLE
 
         editor_card_container.visibility = View.GONE
         bar_container.visibility = View.GONE
@@ -408,6 +452,8 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             setEditor(editingFile)
 
         focusEditor()
+
+//        navigation_button.visibility = View.GONE
 
         settings.visibility = View.VISIBLE
 
@@ -441,6 +487,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
                 )
                 .addTransition(Slide(Gravity.BOTTOM)
                         .addTarget(bar_container)
+//                        .addTarget(navigation_button)
                         .setDuration(300L)
                         .setInterpolator(OvershootInterpolator(0.3f))
                 )
@@ -495,6 +542,7 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     }
 
     override fun onTryCode(code: String) {
+        previousTryCode = true
         saveEditingScript()
         setBlankScript("Try Code")
         goToEdit()
@@ -852,10 +900,18 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
     }
 
     override fun onBackPressed() {
-        if (project_card_container.visibility == View.GONE) {
-            goToProject()
-        } else {
-            super.onBackPressed()
+        when {
+            project_card_container.visibility == View.VISIBLE -> goToLearn()
+            editor_card_container.visibility == View.VISIBLE -> {
+                if (previousTryCode) {
+                    previousTryCode = false
+                    goToLearn()
+                } else {
+                    goToProject()
+                }
+            }
+            learn_card_container.visibility == View.VISIBLE -> super.onBackPressed()
+            else -> super.onBackPressed()
         }
     }
 
@@ -868,9 +924,11 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
 
         KeyboardVisibilityEvent.setEventListener(this) { isOpen ->
             if (isOpen) {
-
+                settings.visibility = View.GONE
+                label_header.visibility = View.GONE
             } else {
-
+                settings.visibility = View.VISIBLE
+                label_header.visibility = View.VISIBLE
             }
         }
     }
