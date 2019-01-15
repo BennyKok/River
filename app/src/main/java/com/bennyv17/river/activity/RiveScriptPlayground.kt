@@ -27,6 +27,7 @@ import com.evgenii.jsevaluator.JsEvaluator
 import java.io.IOException
 import java.util.*
 import com.evgenii.jsevaluator.interfaces.JsCallback
+import java.lang.StringBuilder
 
 
 class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
@@ -46,6 +47,7 @@ class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
 
     private var selectedInterpreter = 0
 
+    var codeBuilder = StringBuilder()
 
     private fun loadJs(fileName: String): String? {
         try {
@@ -90,6 +92,20 @@ class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
         info.text = "Type in anything to chat with " + scriptFile.nameWithoutExtension
 
         selectedInterpreter = pref!!.getInt(Main2Activity.pref_id_editor_interpreter, 0)
+
+        codeBuilder.setLength(0)
+        when (selectedInterpreter) {
+            1 -> {
+                codeBuilder.append(loadJs("rivescript2_0a6.min.js"))
+                codeBuilder.append(loadJs("rscoffeescript.min.js"))
+                codeBuilder.append(loadJs("rsrunner2_0a6.js"))
+            }
+            2 -> {
+                codeBuilder.append(loadJs("rivescript.min.js"))
+                codeBuilder.append(loadJs("rscoffeescript.min.js"))
+                codeBuilder.append(loadJs("rsrunner.js"))
+            }
+        }
 
         label_interpreter.text = "Interpreter : " + resources.getStringArray(R.array.editor_interpreter)[selectedInterpreter]
 
@@ -177,20 +193,10 @@ class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
         }
     }
 
-    fun getReply(code: String, user: String, input: String) {
-        var jsCode = ""
 
-        when (selectedInterpreter) {
-            1 -> {
-                jsCode += loadJs("rivescript2_0a6.min.js")
-                jsCode += loadJs("rsrunner2_0a6.js")
-            }
-            2 -> {
-                jsCode += loadJs("rivescript.min.js")
-                jsCode += loadJs("rsrunner.js")
-            }
-        }
-        jsEvaluator.callFunction(jsCode,
+
+    fun getReply(code: String, user: String, input: String) {
+        jsEvaluator.callFunction(codeBuilder.toString(),
                 object : JsCallback {
 
                     override fun onResult(result: String) {

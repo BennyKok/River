@@ -52,6 +52,12 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.listeners.OnClickListener
+import de.psdev.licensesdialog.LicensesDialog
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20
+import de.psdev.licensesdialog.licenses.GnuLesserGeneralPublicLicense21
+import de.psdev.licensesdialog.licenses.MITLicense
+import de.psdev.licensesdialog.model.Notice
+import de.psdev.licensesdialog.model.Notices
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.item_project.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -104,11 +110,22 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
                         unlockExtras()
                 }
             negativeButton(text = "Libraries") {
-                LibsBuilder()
-                        .withActivityStyle(if (darkTheme) Libs.ActivityStyle.DARK else Libs.ActivityStyle.LIGHT)
-                        .withActivityTitle("Libraries")
-                        .withLicenseShown(true)
-                        .start(this@Main2Activity)
+                val notices = Notices()
+                notices.addNotice(Notice("RiveScript Contrib CoffeeScript", "https://github.com/aichaos/rivescript-js/tree/master/contrib/coffeescript", "Noah Petherbridge", MITLicense()))
+                notices.addNotice(Notice("RiveScript JS", "https://github.com/aichaos/rivescript-js", "Noah Petherbridge", MITLicense()))
+                notices.addNotice(Notice("RiveScript Java", "https://github.com/aichaos/rivescript-java", "the original author or authors", MITLicense()))
+
+                LicensesDialog.Builder(this@Main2Activity)
+                        .setNotices(notices)
+                        .setIncludeOwnLicense(true)
+                        .build()
+                        .show()
+
+//                LibsBuilder()
+//                        .withActivityStyle(if (darkTheme) Libs.ActivityStyle.DARK else Libs.ActivityStyle.LIGHT)
+//                        .withActivityTitle("Libraries")
+//                        .withLicenseShown(true)
+//                        .start(this@Main2Activity)
             }
         }
 
@@ -633,6 +650,9 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             positiveButton(R.string.github) {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/BennyKok"))
                 startActivity(browserIntent)
+            }
+            neutralButton(text = "Changelog") {
+                showChangelog()
             }
             negativeButton(text = "Email") {
                 val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto: itechbenny@gmail.com"))
