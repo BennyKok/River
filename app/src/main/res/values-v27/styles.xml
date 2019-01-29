@@ -16,6 +16,7 @@
         <item name="md_corner_radius">16dp</item>
 
         <item name="exampleTextBackground">#e0e0e0</item>
+        <item name="mBackground">@android:color/white</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
@@ -33,5 +34,6 @@
         <item name="md_corner_radius">16dp</item>
 
         <item name="exampleTextBackground">#3b3b3b</item>
+        <item name="mBackground">#3b3b3b</item>
     </style>
 </resources>

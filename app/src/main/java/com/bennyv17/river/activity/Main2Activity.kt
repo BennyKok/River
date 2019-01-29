@@ -120,12 +120,6 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
                         .setIncludeOwnLicense(true)
                         .build()
                         .show()
-
-//                LibsBuilder()
-//                        .withActivityStyle(if (darkTheme) Libs.ActivityStyle.DARK else Libs.ActivityStyle.LIGHT)
-//                        .withActivityTitle("Libraries")
-//                        .withLicenseShown(true)
-//                        .start(this@Main2Activity)
             }
         }
 
@@ -144,19 +138,6 @@ class Main2Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Tut
             theme.setOnCheckedChangeListener { buttonView, isChecked ->
                 pref!!.edit().putBoolean(pref_id_dark_theme, isChecked).apply()
                 recreate()
-//                MaterialDialog(this@Main2Activity).show {
-//                    title(R.string.restart_title)
-//                    message(R.string.restart_description)
-//                    negativeButton(R.string.cancel) {
-//                        theme.isChecked = false
-//                    }
-//                    onDismiss {
-//                        theme.isChecked = false
-//                    }
-//                    positiveButton(R.string.restart) {
-//
-//                    }
-//                }
             }
 
             popup_text_size.text = editorTextSize.toString() + "sp"

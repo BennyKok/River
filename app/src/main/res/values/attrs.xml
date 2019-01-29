@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="Theme">
         <attr name="exampleTextBackground" format="color" />
+        <attr name="mBackground" format="color" />
         <attr name="myAppBarOverlay" format="reference" />
         <attr name="myPopupOverlay" format="reference" />
     </declare-styleable>

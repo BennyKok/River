@@ -7,8 +7,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/tutorial_section_background"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
         android:layout_height="180dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_section_1" />
 
     <androidx.appcompat.widget.AppCompatImageView
