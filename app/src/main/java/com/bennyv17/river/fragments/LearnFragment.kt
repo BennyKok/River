@@ -40,7 +40,7 @@ class LearnFragment : Fragment(), TutorialItemActionCallback {
     }
 
     override fun onTryCode(code: String) {
-        (activity as Main3Activity).showEditorWihtCode(code)
+        (activity as Main3Activity).tryCode(code)
     }
 
     private fun initTutorial() {

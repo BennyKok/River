@@ -8,18 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.os.Debug
 import android.os.Environment
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnLayout
 import androidx.viewpager.widget.ViewPager
 import com.afollestad.assent.Permission
 import com.afollestad.assent.askForPermissions
@@ -40,7 +40,6 @@ import com.bennyv17.river.highlighter.syntax.RiveScriptSyntax
 import com.bennyv17.river.highlighter.theme.RiveScriptDefaultTheme
 import com.bennyv17.river.item.SimpleTextItem
 import com.bennyv17.river.util.Tool
-import com.flipboard.bottomsheet.BottomSheetLayout
 import com.google.android.material.tabs.TabLayout
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import de.psdev.licensesdialog.LicensesDialog
@@ -65,6 +64,14 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
     private lateinit var learnFragment: LearnFragment
     private lateinit var projectFragment: ProjectFragment
     private lateinit var editorFragment: EditorFragment
+
+    private var editingFile: File? = null
+    private var editingFileName: String? = UNTITLED
+
+    private var editor: EditText? = null
+    private var editorCode: CharSequence? = null
+
+    private val s = "! version = 2.0\n\n+ hello bot\n- Hello human!"
 
     companion object {
         val PROJECT_DIR = Environment.getExternalStorageDirectory().path + ("/River/Project")
@@ -119,8 +126,28 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
 
     }
 
-    fun showEditorWihtCode(code: String) {
+    fun tryCode(code: String) {
+        setBlankScript("Try Code")
+
+        showEditorWithCode(code)
+    }
+
+    private fun setBlankScript(name: String, code: String? = null) {
+        editingFile = null
+        editingFileName = name
+    }
+
+    fun loadScript(it : File){
+        editingFileName = it.nameWithoutExtension
+        editingFile = it
+
+        showEditorWithCode(Tool.getProject(it))
+    }
+
+    fun showEditorWithCode(code: String) {
         val editorLayout = LayoutInflater.from(this).inflate(R.layout.fragment_editor, bottomsheet, false)
+
+        editor = editorLayout.editor
 
         editorLayout.fab_play.setOnClickListener {
             runScript(code)
@@ -163,6 +190,20 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
 
         editorLayout.editor.setTextSize(TypedValue.COMPLEX_UNIT_SP, editorTextSize.toFloat())
 
+        editorLayout.editor.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                editorCode = s
+            }
+        })
+
         editorLayout.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             if (bottomsheet.isSheetShowing) {
                 bottomsheet.expandSheet()
@@ -190,13 +231,29 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
             return
         }
 
+        saveEditingScript(code)
+        if (editingFile == null)
+            editingFile = File(PROJECT_DIR + editingFileName + RIVE_SCRIPT_EXTENSION)
+
         val intent = Intent(this, RiveScriptPlayground::class.java)
-        intent.putExtra(extra_scrip_data, code)
+        intent.putExtra(extra_scrip_data, editingFile!!.absoluteFile.toString())
         startActivity(intent)
+    }
+
+    private fun saveEditingScript(code: String) {
+        if (!editingFileName.isNullOrEmpty() && checkPermissions(false) && !(editingFileName == UNTITLED && (code.isEmpty() || code == s))) {
+            editingFile = Tool.saveScript(editingFileName!!, code)
+            editingFileName = UNTITLED
+        }
     }
 
     private fun setUpEditor() {
         bottomsheet.setShouldDimContentView(false)
+
+        bottomsheet.addOnSheetDismissedListener {
+            if (editorCode != null)
+                saveEditingScript(editorCode.toString())
+        }
     }
 
     private fun showAbout() {

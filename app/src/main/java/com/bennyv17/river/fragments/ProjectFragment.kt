@@ -45,7 +45,7 @@ class ProjectFragment : Fragment() {
         allScripts.forEach {
             projectAdapter.add(ProjectItem(it.nameWithoutExtension)
                     .withClickListener {
-
+                        (activity as Main3Activity).loadScript(it)
                     }
                     .withLongClickListener {
                         val projectName = it.nameWithoutExtension
