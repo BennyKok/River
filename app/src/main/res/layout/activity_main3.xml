@@ -23,7 +23,7 @@
                 android:background="?attr/mBackground"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                app:contentInsetStart="0dp"
+
                 app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <com.google.android.material.tabs.TabLayout
@@ -52,6 +52,15 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

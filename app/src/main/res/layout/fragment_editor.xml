@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?android:colorBackground"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editor_main"
@@ -16,6 +16,7 @@
             android:layout_height="0dp"
             android:fillViewport="true"
             android:scrollbars="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/my_tool_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,61 +44,77 @@
 
         </HorizontalScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/editor_symbol_tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingEnd="100dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editor_card_container" />
-
-
         <LinearLayout
-            android:id="@+id/bar_container"
+            android:id="@+id/my_tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:animateLayoutChanges="true"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editor_symbol_tool_bar">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <include
-                android:id="@+id/file"
-                layout="@layout/nav_button"
-                android:visibility="gone" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/exampleTextBackground"
+                />
 
-            <include
-                android:id="@+id/action_undo"
-                layout="@layout/nav_button" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/editor_symbol_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingEnd="100dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editor_card_container" />
 
-            <include
-                android:id="@+id/action_redo"
-                layout="@layout/nav_button" />
+
+            <LinearLayout
+                android:layout_marginStart="24dp"
+                android:id="@+id/bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editor_symbol_tool_bar">
+
+                <include
+                    android:id="@+id/file"
+                    layout="@layout/nav_button"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/action_undo"
+                    layout="@layout/nav_button" />
+
+                <include
+                    android:id="@+id/action_redo"
+                    layout="@layout/nav_button" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="26dp"
+        android:layout_margin="24dp"
         android:src="@drawable/ic_outline_play_arrow_24px"
-        android:tint="@color/md_white_1000"
+        android:tint="#FFF"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
-        app:layout_anchor="@id/editor_symbol_tool_bar"
+        app:layout_anchor="@id/editor_main"
         app:layout_anchorGravity="bottom|end" />
 
 

@@ -3,23 +3,26 @@ package com.bennyv17.river.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import android.os.Bundle
-import android.os.Debug
 import android.os.Environment
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.doOnPreDraw
 import androidx.viewpager.widget.ViewPager
 import com.afollestad.assent.Permission
 import com.afollestad.assent.askForPermissions
@@ -46,6 +49,7 @@ import de.psdev.licensesdialog.LicensesDialog
 import de.psdev.licensesdialog.licenses.MITLicense
 import de.psdev.licensesdialog.model.Notice
 import de.psdev.licensesdialog.model.Notices
+import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.activity_main3.*
 import kotlinx.android.synthetic.main.fragment_editor.view.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -123,34 +127,16 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
             showChangelog()
         }
 
-
+        initEditor()
     }
 
-    fun tryCode(code: String) {
-        setBlankScript("Try Code")
-
-        showEditorWithCode(code)
-    }
-
-    private fun setBlankScript(name: String, code: String? = null) {
-        editingFile = null
-        editingFileName = name
-    }
-
-    fun loadScript(it : File){
-        editingFileName = it.nameWithoutExtension
-        editingFile = it
-
-        showEditorWithCode(Tool.getProject(it))
-    }
-
-    fun showEditorWithCode(code: String) {
-        val editorLayout = LayoutInflater.from(this).inflate(R.layout.fragment_editor, bottomsheet, false)
-
+    fun attachEditor(editorLayout : View){
         editor = editorLayout.editor
-
+        editorLayout.doOnPreDraw {
+            editorLayout.setPadding(0,toolbar.height,0,0)
+        }
         editorLayout.fab_play.setOnClickListener {
-            runScript(code)
+            runScript(editor!!.text.toString())
         }
 
         //Symbol list
@@ -219,10 +205,59 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
                     bottomsheet.peekSheet()
             }
         }
+    }
+
+    private fun initEditor() {
+        editorFragment = EditorFragment.newInstance()
+        root.visibility = View.GONE
+        supportFragmentManager.beginTransaction().add(R.id.root, editorFragment).commit()
+    }
+
+    override fun onBackPressed() {
+        if (container.visibility == View.GONE){
+            root.visibility = View.GONE
+            container.visibility = View.VISIBLE
+            tabs.visibility = View.VISIBLE
+            updateFabVisibility()
+            return
+        }
+
+        if (bottomsheet != null && bottomsheet.isSheetShowing)
+            bottomsheet.dismissSheet()
+        else
+            super.onBackPressed()
+    }
+
+    fun tryCode(code: String) {
+        setBlankScript("Try Code")
+
+        showEditorWithCode(code)
+    }
+
+    private fun setBlankScript(name: String, code: String? = null) {
+        editingFile = null
+        editingFileName = name
+    }
+
+    fun loadScript(it: File) {
+        editingFileName = it.nameWithoutExtension
+        editingFile = it
+
+        showEditorWithCode(Tool.getProject(it))
+    }
+
+    fun showEditorWithCode(code: String) {
+        tabs.visibility = View.GONE
+        toolbar.title = editingFileName
+        root.visibility = View.VISIBLE
+        container.visibility = View.GONE
+        fab_add.hide()
+        appbar.setExpanded(true,true)
+
+        val editorLayout = editorFragment.view!!
         //Set the text
         editorLayout.editor.setText(code)
-
-        bottomsheet.showWithSheetView(editorLayout)
+        editorLayout.editor.clearHistory()
     }
 
     private fun runScript(code: String) {
@@ -248,11 +283,17 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
     }
 
     private fun setUpEditor() {
-        bottomsheet.setShouldDimContentView(false)
-
+        bottomsheet.interceptContentTouch = false
         bottomsheet.addOnSheetDismissedListener {
             if (editorCode != null)
                 saveEditingScript(editorCode.toString())
+
+            //Hide the keyboard
+            val view = this.currentFocus
+            if (view != null) {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
         }
     }
 
@@ -323,6 +364,7 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
             theme.isChecked = pref!!.getBoolean(pref_id_dark_theme, false)
             theme.setOnCheckedChangeListener { buttonView, isChecked ->
                 pref!!.edit().putBoolean(pref_id_dark_theme, isChecked).apply()
+                dialog.dismiss()
                 recreate()
             }
 
@@ -353,6 +395,7 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
                     { dialog, index, text ->
                         pref!!.edit().putInt(pref_id_editor_typeface, index).apply()
                         popup_typeface.text = text
+                        updateEditorTypeface()
                     }
                 }
 
@@ -377,7 +420,17 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
 
     }
 
+    private fun updateEditorTypeface() {
+        editorFragment.view!!.editor.typeface = when (pref!!.getInt(Main2Activity.pref_id_editor_typeface, 0)) {
+            0 -> Typeface.DEFAULT
+            1 -> Typeface.MONOSPACE
+            2 -> ResourcesCompat.getFont(this, R.font.noto_sans)
+            else -> Typeface.DEFAULT
+        }
+    }
+
     private fun saveTextSize() {
+        editorFragment.view!!.editor.setTextSize(TypedValue.COMPLEX_UNIT_SP, editorTextSize.toFloat())
         pref!!.edit().putInt(Main3Activity.pref_id_editor_text_size, editorTextSize).apply()
     }
 
