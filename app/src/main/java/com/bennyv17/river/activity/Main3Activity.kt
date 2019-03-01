@@ -130,10 +130,10 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
         initEditor()
     }
 
-    fun attachEditor(editorLayout : View){
+    fun attachEditor(editorLayout: View) {
         editor = editorLayout.editor
         editorLayout.doOnPreDraw {
-            editorLayout.setPadding(0,toolbar.height,0,0)
+            editorLayout.setPadding(0, toolbar.height, 0, 0)
         }
         editorLayout.fab_play.setOnClickListener {
             runScript(editor!!.text.toString())
@@ -210,12 +210,16 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
     private fun initEditor() {
         editorFragment = EditorFragment.newInstance()
         root.visibility = View.GONE
+        root.alpha = 0f
         supportFragmentManager.beginTransaction().add(R.id.root, editorFragment).commit()
     }
 
     override fun onBackPressed() {
-        if (container.visibility == View.GONE){
+        if (container.visibility == View.GONE) {
+            root.alpha = 0f
             root.visibility = View.GONE
+            container.alpha = 0f
+            container.animate().alpha(1f).duration = 200L
             container.visibility = View.VISIBLE
             tabs.visibility = View.VISIBLE
             updateFabVisibility()
@@ -250,9 +254,10 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
         tabs.visibility = View.GONE
         toolbar.title = editingFileName
         root.visibility = View.VISIBLE
+        root.animate().alpha(1f).duration = 200L
         container.visibility = View.GONE
         fab_add.hide()
-        appbar.setExpanded(true,true)
+        appbar.setExpanded(true, true)
 
         val editorLayout = editorFragment.view!!
         //Set the text

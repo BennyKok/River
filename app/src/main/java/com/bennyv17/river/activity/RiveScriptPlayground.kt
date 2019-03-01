@@ -96,9 +96,9 @@ class RiveScriptPlayground : AppCompatActivity(), JsrsCallback {
         codeBuilder.setLength(0)
         when (selectedInterpreter) {
             1 -> {
-                codeBuilder.append(loadJs("rivescript2_0a6.min.js"))
+                codeBuilder.append(loadJs("rivescript2_0.min.js"))
                 codeBuilder.append(loadJs("rscoffeescript.min.js"))
-                codeBuilder.append(loadJs("rsrunner2_0a6.js"))
+                codeBuilder.append(loadJs("rsrunner2_0.js"))
             }
             2 -> {
                 codeBuilder.append(loadJs("rivescript.min.js"))
