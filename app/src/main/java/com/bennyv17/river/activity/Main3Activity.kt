@@ -216,6 +216,9 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
 
     override fun onBackPressed() {
         if (container.visibility == View.GONE) {
+            val editorLayout = editorFragment.view!!
+            saveEditingScript(editorLayout.editor.text.toString())
+
             root.alpha = 0f
             root.visibility = View.GONE
             container.alpha = 0f
@@ -238,7 +241,7 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
         showEditorWithCode(code)
     }
 
-    private fun setBlankScript(name: String, code: String? = null) {
+    fun setBlankScript(name: String) {
         editingFile = null
         editingFileName = name
     }
@@ -263,6 +266,7 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
         //Set the text
         editorLayout.editor.setText(code)
         editorLayout.editor.clearHistory()
+        editorLayout.editor.highlightText()
     }
 
     private fun runScript(code: String) {
@@ -280,7 +284,7 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
         startActivity(intent)
     }
 
-    private fun saveEditingScript(code: String) {
+    fun saveEditingScript(code: String) {
         if (!editingFileName.isNullOrEmpty() && checkPermissions(false) && !(editingFileName == UNTITLED && (code.isEmpty() || code == s))) {
             editingFile = Tool.saveScript(editingFileName!!, code)
             editingFileName = UNTITLED
@@ -504,6 +508,13 @@ class Main3Activity : AppCompatActivity(), BillingProcessor.IBillingHandler, Riv
     public override fun onDestroy() {
         bp.release()
         super.onDestroy()
+    }
+
+    override fun onPause() {
+        val editorLayout = editorFragment.view
+        if (editorLayout != null)
+            saveEditingScript(editorLayout.editor.text.toString())
+        super.onPause()
     }
 
     override fun onAttachFragment(fragment: Fragment?) {

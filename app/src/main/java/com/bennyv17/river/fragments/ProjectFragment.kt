@@ -102,6 +102,14 @@ class ProjectFragment : Fragment() {
                                     .title(text = "New Bot Name")
                                     .input { _, input ->
                                         val name = Tool.stripExtension(input.toString())
+                                        val code = "! version = 2.0\n\n"
+
+                                        (context as Main3Activity).setBlankScript(name)
+                                        (context as Main3Activity).saveEditingScript(code)
+                                        (context as Main3Activity).setBlankScript(name)
+
+                                        (context as Main3Activity).showEditorWithCode(code)
+
                                         initAllScripts()
                                     }.show()
                         }
@@ -112,10 +120,16 @@ class ProjectFragment : Fragment() {
                                         MaterialDialog(context!!)
                                                 .title(text = "Template Bot Name")
                                                 .input { _, input ->
-                                                    val temp = RiveScriptTemplate.getTemplate()[index]
-                                                    val code = "! version = 2.0\n\n$temp"
                                                     val name = Tool.stripExtension(input.toString())
 
+                                                    val temp = RiveScriptTemplate.getTemplate()[index]
+                                                    val code = "! version = 2.0\n\n$temp"
+
+                                                    (context as Main3Activity).setBlankScript(name)
+                                                    (context as Main3Activity).saveEditingScript(code)
+                                                    (context as Main3Activity).setBlankScript(name)
+
+                                                    (context as Main3Activity).showEditorWithCode(code)
 
                                                     initAllScripts()
                                                 }.show()
